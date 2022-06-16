@@ -14,6 +14,7 @@ export default {
 
 <style scoped>
 .container{
+    display: flex;
     position: absolute;
     width: 50%;
     height: 100%;
@@ -21,14 +22,16 @@ export default {
 }
 
 .banner{
+    display: flex;
     position: relative;
     margin: auto;
     margin-top: 10%;
     width: 75%;
+    max-width: 510px;
     height: 73.5%;
     background-image: url("../../assets/tecnica-pomodoro.png");
     transition: all 1s ease-in-out;
-    animation: banner 25s infinite linear;
+    animation: banner 12s infinite linear;
 }
 
 @keyframes banner {
