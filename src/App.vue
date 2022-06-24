@@ -3,13 +3,14 @@
     <div class="app" >
       
       <div class="right">
-        <right-register v-if="goToLogin" v-on:goHome="goToHome" v-on:registered="registered"/>
-        <home-right-vue v-else v-on:goLogin="irLogin" v-on:finish="finish"  />
+        <right-register v-if="goToLogin" v-on:goHome="goToHome" v-on:registered="registered" v-on:login='login'/>
+        <home-right-vue v-else-if="home" v-on:goLogin="irLogin" v-on:finish="finish"  />
+        <login-right  v-else-if="login"/>
       </div>
 
       <div class="left">
-        <loginLeftVue v-if="goToLogin" />
-        <LeftHomeVue v-else v-on:add="save" />
+        <loginLeftVue v-if="goToLogin || logi" />
+        <LeftHomeVue v-else-if="home" />
       </div>
 
 
@@ -25,20 +26,31 @@ import RightRegister from './components/Right-register.vue';
 import loginLeftVue from './components/Registro/login-left.vue';
 import HomeRightVue from './components/Home-right.vue';
 import LeftHomeVue from './components/Left-home.vue';
+import LoginRight from './components/Login-right.vue'
 
 export default {
   components: {
     RightRegister,
     loginLeftVue,
     HomeRightVue,
-    LeftHomeVue
+    LeftHomeVue,
+    LoginRight
 },
+
   methods:{
     irLogin(){
-      this.goToLogin = !this.goToLogin
+      this.home = false
+      this.goToLogin = true
     },
     goToHome(){
-      this.goToLogin = !this.goToLogin
+      this.home = true
+      this.goToLogin = false
+
+    },
+    login(){
+      this.home = false;
+      this.goToLogin = false;
+      this.logi = true;
     },
     finish(){
       this.tasks.forEach(element => {
@@ -49,9 +61,10 @@ export default {
       this.tasks = data
     },
     registered(){
-      this.goToLogin = !this.goToLogin
+      this.goToLogin = false;
+      this.home = true;
       setTimeout(() => {
-        alert('Successfully Registered')
+        alert('Sucessfully Registered')
       }, 1);
       
     }
@@ -60,6 +73,8 @@ export default {
   data(){
     return{
       goToLogin: false,
+      home:true,
+      logi:false,
       tasks:[]
     }
   },

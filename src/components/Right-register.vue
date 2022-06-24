@@ -2,7 +2,7 @@
     <div class="container">
         
         <div class="header">
-            <button class="login-button">Sign in</button>
+            <button class="login-button" @click="$emit('login')">Sign in</button>
             <button class="register-button">Sign up</button>
             <div class="tittle">
                 <h1>Sign up</h1>
