@@ -4,7 +4,7 @@
             <div class="name">
                 <h1>pomodoro</h1>
             </div>
-            <button @click="$emit('goLogin')">login</button>
+            <button @click="$emit('goLogin')" >login</button>
         </div>
 
         <div class="timer">
@@ -98,7 +98,8 @@ export default {
             clearInterval(this.interval);
             this.beepAudio.play();
             this.$emit("finish");
-        }
+        },
+
 
     },
 
@@ -127,7 +128,8 @@ export default {
     position: absolute;    
     width: 50%;
     margin-left: 50%;
-    height: 695px;
+    height: 100%;
+    min-height: 695px;
     background: #C13D3D;
 }
 
@@ -229,7 +231,7 @@ export default {
 
 }
 
-@media (max-width: 800px) {
+@media (max-width: 800px){
     .container{
         width: 100%;
         margin-left: 0;

@@ -3,8 +3,8 @@
     <div class="app" >
       
       <div class="right">
-        <right-register v-if="goToLogin" v-on:goHome="goToHome" />
-        <home-right-vue v-else v-on:goLogin="irLogin" v-on:finish="finish" />
+        <right-register v-if="goToLogin" v-on:goHome="goToHome" v-on:registered="registered"/>
+        <home-right-vue v-else v-on:goLogin="irLogin" v-on:finish="finish"  />
       </div>
 
       <div class="left">
@@ -47,7 +47,15 @@ export default {
     },
     save(data){
       this.tasks = data
+    },
+    registered(){
+      this.goToLogin = !this.goToLogin
+      setTimeout(() => {
+        alert('Successfully Registered')
+      }, 1);
+      
     }
+
   },
   data(){
     return{

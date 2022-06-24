@@ -18,7 +18,9 @@ export default {
     position: absolute;
     width: 50%;
     height: 100%;
+    min-height: 695px;
     background: #42403D;
+    transition: all 1s ease 0s;
 }
 
 .banner{
@@ -58,6 +60,13 @@ export default {
     }
     100%{
         background-image: url("../../assets/bannerpomo.png")
+    }
+}
+
+@media (max-width: 800px) {
+    .container{
+        width: 100%;
+        margin-top: 695px;
     }
 }
 

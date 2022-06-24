@@ -79,6 +79,7 @@ export default {
     position: absolute;
     width: 50%;
     height: 100%;
+    min-height: 695px;
     background: #42403D;
 
 }
