@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { uuid } from "vue-uuid";
+// import { uuid } from "vue-uuid";
 
 export default {
     name: "TaskAdd",
@@ -26,7 +26,7 @@ export default {
             theForm.reset()
 
             const newTask = {
-                id: uuid.v4(),
+                // id:uuid.v4(),
                 title: this.title,
                 pomodorosCount: this.pomodorosCount,
                 completed: false
