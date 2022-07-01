@@ -18,7 +18,8 @@ export default {
     props:["task"],
     methods:{
         checkedtask(){
-            this.task.completed = !this.task.completed
+            this.task.completed = !this.task.completed;
+            this.task.pomodorosCount = 1;
         }
     }
 }
@@ -54,6 +55,7 @@ export default {
     .task-actions{
         padding: 0 10px;
         width: 10%;
+        
     }
     
     button{

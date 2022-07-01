@@ -32,8 +32,8 @@
         </div>
 
         <div class="redes">      
-            <a href=""><img src="../assets/gramo.png" alt=""></a>
-            <a href=""><img src="../assets/facebook (2).png" alt=""></a>
+            <a href="#" @click="$emit('google')"><img  src="../assets/gramo.png" alt=""></a>
+            <a href="#"><img src="../assets/facebook (2).png" alt=""></a>
             <button class="home-button" @click="$emit('goHome')">Home</button>
         </div>
 
@@ -46,8 +46,14 @@
 <script>
 import { uuid } from "vue-uuid";
 
+
 export default {
     name: "Right-register",
+    data(){
+        return{
+            user:""
+        }
+    },
     methods:{
         save(e){
             e.preventDefault();
@@ -65,11 +71,10 @@ export default {
             if(password == confirmPassword){
                 this.$emit("registered");
                 return{
-                    "id": uuid.v4(),
                     "username":username,
                     "email":email,
                     "password":confirmPassword
-                }  
+                }
             }else{
                 let element = document.getElementById("error");
                 element.innerHTML = `

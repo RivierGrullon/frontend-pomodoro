@@ -3,8 +3,10 @@
         <div class="header">
             <div class="name">
                 <h1>pomodoro</h1>
+                
             </div>
-            <button @click="$emit('goLogin')" >login</button>
+            <img src="../assets/usuario-de-perfil.png" alt="" v-if="registered">
+            <button v-else @click="$emit('goLogin')" >login</button>
         </div>
 
         <div class="timer">
@@ -33,6 +35,7 @@
 import beep from "../assets/sound/beep.mp3"
 export default {
     name: "Home-right",
+    props:["registered"],
     data(){
         return{
         currentTimeSeconds: 0.1 * 60,
@@ -48,6 +51,13 @@ export default {
         }
 
     },
+    created(){
+        let time = JSON.parse(localStorage.getItem("time"));
+        if(time == 0 || time == null){
+            this.currentTimeSeconds = 0.1 * 60
+        }else
+            this.currentTimeSeconds = time;
+    },
     methods:{
         beginnig(){
             this.currentTimeSeconds = 0.1 * 60;
@@ -60,6 +70,8 @@ export default {
         clickStart(){
             this.interval = setInterval(() =>{
                 this.currentTimeSeconds -= 1;
+                let time = JSON.stringify(this.currentTimeSeconds)
+                localStorage.setItem("time", time)
                 if(this.currentTimeSeconds == 0){
                     this.onFinish();
                     this.coolDown();
@@ -178,6 +190,15 @@ export default {
     background: #000000;
     border-radius: 20px;
 }
+
+.header img{
+    position: absolute;
+    left: 85%;
+    top: 5px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
 .nav{
     width: 100%;
     margin-top: 2%;
@@ -239,6 +260,9 @@ export default {
 }
 
 @media (max-width: 450px) {
+    .header img{
+        left: 80%;
+    }
     .timer h1{
     font-weight: 600;
     font-size: 600%;

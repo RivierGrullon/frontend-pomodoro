@@ -3,14 +3,14 @@
     <div class="app" >
       
       <div class="right">
-        <right-register v-if="goToLogin" v-on:goHome="goToHome" v-on:registered="registered" v-on:login='login'/>
-        <home-right-vue v-else-if="home" v-on:goLogin="irLogin" v-on:finish="finish"  />
+        <right-register v-if="goToLogin" v-on:goHome="goToHome" v-on:registered="registered" v-on:login='login' v-on:google="signinGoogle"/>
+        <home-right-vue v-else-if="home" v-on:goLogin="irLogin" v-on:finish="finish" :registered="register"  />
         <login-right  v-else-if="login"/>
       </div>
 
       <div class="left">
         <loginLeftVue v-if="goToLogin || logi" />
-        <LeftHomeVue v-else-if="home" />
+        <LeftHomeVue v-else-if="home" v-on:add="save"/>
       </div>
 
 
@@ -61,12 +61,17 @@ export default {
       this.tasks = data
     },
     registered(){
+      this.register = true;
       this.goToLogin = false;
       this.home = true;
       setTimeout(() => {
         alert('Sucessfully Registered')
       }, 1);
       
+    },
+    async signinGoogle(){
+      const googleUser = await this.$GAuth.signIn();
+      console.log(googleUser);
     }
 
   },
@@ -75,7 +80,8 @@ export default {
       goToLogin: false,
       home:true,
       logi:false,
-      tasks:[]
+      tasks:[],
+      register:false
     }
   },
 
