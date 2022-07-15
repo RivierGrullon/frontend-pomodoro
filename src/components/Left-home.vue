@@ -3,7 +3,7 @@
         <h1>Tasks</h1>
         <task-add-vue v-if="add" v-on:add-task="addTask"/>
         <div v-else class="add" id="aDD" >
-            <button @click="addNewTask"><img src="../assets/more (2).png" alt=""></button>
+            <button @click="addNewTask"><img src="../assets/more.png" alt=""></button>
         </div>
         <div class="tasks">
             <TasksComponent v-bind:tasksList="copyTasks" v-on:delete-task="deleteTask" />

@@ -13,7 +13,7 @@
         <div>
             <div class="form">
                 <div class="imgform">
-                    <img src="../assets/user (2).png" alt="">
+                    <img src="../assets/user.png" alt="">
                     <img src="../assets/candado.png" alt="">
                 </div>
                 <form class="data" id="form" name="form" v-on:submit="save">
@@ -27,7 +27,7 @@
         
         <div class="red"> 
             <a href=""><img src="../assets/gramo.png" alt=""></a>
-            <a href=""><img src="../assets/facebook (2).png" alt=""></a>
+            <a href=""><img src="../assets/facebook.png" alt=""></a>
         </div>
 
         <div class="footer">

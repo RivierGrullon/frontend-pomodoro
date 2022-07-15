@@ -13,7 +13,7 @@
         <div>
             <div class="form">
                 <div class="imgform">
-                    <img src="../assets/user (2).png" alt="">
+                    <img src="../assets/user.png" alt="">
                     <img src="../assets/sobre-de-correo-electronico.png" alt="">
                     <img src="../assets/candado.png" alt="">
                     <img src="../assets/candado.png" alt="">
@@ -33,7 +33,7 @@
 
         <div class="redes">      
             <a href="#" @click="$emit('google')"><img  src="../assets/gramo.png" alt=""></a>
-            <a href="#"><img src="../assets/facebook (2).png" alt=""></a>
+            <a href="#"><img src="../assets/facebook.png" alt=""></a>
             <button class="home-button" @click="$emit('goHome')">Home</button>
         </div>
 
