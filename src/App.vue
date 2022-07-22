@@ -7,7 +7,7 @@
         <home-right-vue v-else-if="home" v-on:goLogin="irLogin" v-on:finish="finish" :registered="register"  />
         <login-right  v-else-if="login"/>
       </div>
-
+      
       <div class="left">
         <loginLeftVue v-if="goToLogin || logi" />
         <LeftHomeVue v-else-if="home" v-on:add="save"/>

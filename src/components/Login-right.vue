@@ -25,7 +25,7 @@
             </div>
         </div>
         
-        <div class="red"> 
+        <div class="redes"> 
             <a href=""><img src="../assets/gramo.png" alt=""></a>
             <a href=""><img src="../assets/facebook (2).png" alt=""></a>
         </div>
@@ -99,10 +99,10 @@ export default {
 .forget{
     /* transition: all 5s ease 0s; */
     position: absolute;
-    left: 70px;
+    left: 10%;
     cursor: pointer;
     width: 50%;
-    margin-top: 310px;
+    margin-top: 260px;
     color: rgb(0, 0, 0);
     font-size: 20px;
 }
@@ -110,8 +110,8 @@ export default {
 .tittle{
     position: absolute;
     background-color: #000000;
-    margin-left: 12%;
-    margin-top: 100px;
+    margin-left: 15%;
+    margin-top: 55px;
     width: 70%;
     height: 110px;
     color: #C13D3D;
@@ -130,10 +130,10 @@ export default {
     justify-content: center;
     position: absolute;
     margin-left: 8%; 
-    margin-top: 280px; 
+    margin-top: 225px; 
     width: 83%; 
     max-width: 600px;
-    height: 350px; 
+    height: 300px; 
     background: rgba(237, 163, 163, 0.22); 
     border-radius: 20px;
     display: flex;
@@ -157,7 +157,7 @@ export default {
     width: 35%;
     height: 27px;
     margin-left: 150%;
-    margin-top: 25px;
+    margin-top: 70px;
     color: white;
     font-size: 120%;
     background: #000000;
@@ -173,14 +173,14 @@ export default {
 
 .form input{
     display: flex;
-    margin-top: 18px;
-    margin-left: 25%;
+    margin-top: 50px;
+    margin-left: 20%;
     border: none;
     border-bottom: 2px solid #000;
-    padding: 15.5%;
+    padding: 5%;
     background: transparent;
     outline: none;
-    width: 125%;
+    width: 150%;
     max-width: 375px;
     height: 15px;
     color: 000;
@@ -189,7 +189,7 @@ export default {
 }
 
 .imgform{
-    width: 12%;
+    width: 10%;
 }
 .imgform img{
     display: flex;
@@ -197,24 +197,56 @@ export default {
     margin-left: 90%;
     width:75%;
     height: 50px;
-    margin-top: 70px;
+    margin-top: 50px;
 }
 
-.red{ 
+.redes{ 
     display: flex;
-    flex-wrap: wrap;
     position: relative;
-    margin-top: 650px;
-    height: 10vh;
-    width: 15%;
-    margin-left: 65vh;
-    margin-right: auto;
-    justify-content: space-between;
+    margin-top: 535px;
+    margin-left: 65%;
 }
 
-.red img{
+.redes img{
     width: 100%;
-    height: 50px;
+    height: 40px;
+}
+@media (max-width: 800px) {
+    .container{
+        margin-left: 0%;
+        width: 100%;
+    }
 }
 
+@media (max-width: 550px) {
+    .form input{
+        height: 25px;
+    }
+}
+
+@media (max-width: 400px) {
+    .form input{
+        height: 30px;
+    }
+    .redes{ 
+    margin-left: 50%;
+    }
+    .tittle h1{
+    font-size: 370%;
+    }
+
+    .form input[type="submit"]{
+        font-size: 80%;
+    }
+    .login-button{
+        font-size: 80%;
+    }
+    .register-button{
+        font-size: 80%;
+    }
+    .forget{
+        font-size: 18px;
+    }
+
+}
 </style>
