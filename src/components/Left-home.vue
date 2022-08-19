@@ -39,9 +39,11 @@ export default {
             let data = localStorage.getItem("token")
             let token = JSON.parse(data)
             axios.post("https://stark-lake-93119.herokuapp.com/createtask", task, {headers: { Authorization: `Bearer ${token}` }})
-            this.add = false
-            this.copyTasks = []
-            this.saveTasks()
+            .then((res)=>{
+                this.add = false;  
+                this.copyTasks = []
+                this.saveTasks();
+            })
             
         },
         addNewTask(){
@@ -59,7 +61,11 @@ export default {
                         let data = localStorage.getItem("token")
                         let token = JSON.parse(data)
                         axios.delete("https://stark-lake-93119.herokuapp.com/deletetask",   { data:{id:param}, headers: { Authorization: `Bearer ${token}` } })
-                        this.add = false;
+                        .then((res)=>{
+                            this.update = false;  
+                            this.copyTasks = []
+                            this.saveTasks();
+                        })
                         this.$swal.fire({
                             position: 'top-end',
                             icon: 'success',
@@ -67,7 +73,10 @@ export default {
                             showConfirmButton: false,
                             timer: 1500
                         })
-                        this.saveTasks()
+                        setTimeout(()=>{
+                            this.copyTasks = []
+                            this.saveTasks();
+                        }, 2)
                     } else if (result.isDenied) {
                         Swal.fire('Changes are not saved', '', 'info')
                     }
@@ -112,11 +121,13 @@ export default {
             let token = JSON.parse(data);
             let task = param;
             task.id = this.idUpdate;
-            axios.put("https://stark-lake-93119.herokuapp.com/updatetask", task, {headers: { Authorization: `Bearer ${token}` }});
-            this.copyTasks = []
-            this.saveTasks();
-            this.update = false;
-            
+            axios.put("https://stark-lake-93119.herokuapp.com/updatetask", task, {headers: { Authorization: `Bearer ${token}` }})
+            .then((res)=>{
+                this.update = false;  
+                this.copyTasks = []
+                this.saveTasks();
+            })
+     
         }
 
     },
