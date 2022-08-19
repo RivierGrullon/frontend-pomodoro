@@ -39,7 +39,7 @@ export default {
     data(){
         return{
         currentTimeSeconds: 25 * 60,
-        restDuration: 25 * 60,
+        restDuration: 5 * 60,
         interval:null,
         interval2:null,
         start:true,
