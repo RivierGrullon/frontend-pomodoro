@@ -5,7 +5,7 @@
                 <h1>pomodoro</h1>
                 
             </div>
-            <img src="../assets/usuario-de-perfil.png" alt="" v-if="registered">
+            <img src="../assets/usuario-de-perfil.png" alt="" v-if="logged">
             <button v-else @click="$emit('goLogin')" >login</button>
         </div>
 
@@ -38,8 +38,8 @@ export default {
     props:["registered"],
     data(){
         return{
-        currentTimeSeconds: 0.1 * 60,
-        restDuration: 0.1 * 60,
+        currentTimeSeconds: 25 * 60,
+        restDuration: 25 * 60,
         interval:null,
         interval2:null,
         start:true,
@@ -48,17 +48,23 @@ export default {
         resume:false,
         pomoOrRest:true,
         beepAudio: new Audio(beep),
+        logged: false
         }
 
     },
     created(){
+        this.isLogged()
         let time = JSON.parse(localStorage.getItem("time"));
         if(time == 0 || time == null){
-            this.currentTimeSeconds = 0.1 * 60
+            this.currentTimeSeconds = 25 * 60
         }else
             this.currentTimeSeconds = time;
     },
     methods:{
+        isLogged(){
+            let login = localStorage.getItem("logged");
+            this.logged = login
+        },
         beginnig(){
             this.currentTimeSeconds = 0.1 * 60;
             this.restDuration = 0.1 * 60,

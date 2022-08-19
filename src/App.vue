@@ -4,13 +4,13 @@
       
       <div class="right">
         <right-register v-if="goToLogin" v-on:goHome="goToHome" v-on:registered="registered" v-on:login='login' v-on:google="signinGoogle"/>
-        <home-right-vue v-else-if="home" v-on:goLogin="irLogin" v-on:finish="finish" :registered="register"  />
-        <login-right  v-else-if="login"/>
+        <home-right-vue v-else-if="home" v-on:goLogin="login" v-on:finish="finish" :registered="register"  />
+        <login-right  v-else-if="login" v-on:goRegister="irLogin" v-on:loged="logged"/>
       </div>
       
       <div class="left">
         <loginLeftVue v-if="goToLogin || logi" />
-        <LeftHomeVue v-else-if="home" v-on:add="save"/>
+        <LeftHomeVue v-else-if="home" v-on:add="save" v-on:expired="login"/>
       </div>
 
 
@@ -36,45 +36,6 @@ export default {
     LeftHomeVue,
     LoginRight
 },
-
-  methods:{
-    irLogin(){
-      this.home = false
-      this.goToLogin = true
-    },
-    goToHome(){
-      this.home = true
-      this.goToLogin = false
-
-    },
-    login(){
-      this.home = false;
-      this.goToLogin = false;
-      this.logi = true;
-    },
-    finish(){
-      this.tasks.forEach(element => {
-        element.pomodorosCount -= 1;
-      });
-    },
-    save(data){
-      this.tasks = data
-    },
-    registered(){
-      this.register = true;
-      this.goToLogin = false;
-      this.home = true;
-      setTimeout(() => {
-        alert('Sucessfully Registered')
-      }, 1);
-      
-    },
-    async signinGoogle(){
-      const googleUser = await this.$GAuth.signIn();
-      console.log(googleUser);
-    }
-
-  },
   data(){
     return{
       goToLogin: false,
@@ -84,6 +45,59 @@ export default {
       register:false
     }
   },
+  methods:{
+    irLogin(){
+      this.home = false;
+      this.logi = false;
+      this.goToLogin = true;
+    },
+    goToHome(){
+      this.home = true
+      this.goToLogin = false
+
+    },
+    login(){
+      this.home = false;      
+      this.logi = true;
+      this.goToLogin = false;
+    },
+    finish(){
+      this.tasks.forEach(element => {
+        element.pomodorosCount -= 1;
+      });
+    },
+    save(data){
+      this.tasks = data
+    },
+    logged(msg){
+      this.logi = false;
+      this.goToLogin = false;
+      this.home = true;
+      setTimeout(() => {
+        this.$swal.fire(
+            'Good job!',
+            "you have successfully logged in",
+            'success'
+          );
+      }, 1);
+    },
+    registered(response){
+      this.register = false;
+      this.goToLogin = false;
+      this.home = true;
+      setTimeout(() => {
+        let msg = response.data.msg;
+        this.$swal.fire(
+            'Good job!',
+            msg,
+            'success'
+          );
+      }, 1);
+      
+    },
+  },
+
+
 
 }
 </script>

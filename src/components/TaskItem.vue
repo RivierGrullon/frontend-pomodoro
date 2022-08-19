@@ -1,14 +1,16 @@
 <template>
-    <div class="task" v-bind:class="{completed: task.completed || task.pomodorosCount <= 0}" >
+    <div class="task" v-bind:class="{completed: task.completed == true }" >
         <div class="task-body">
             <input type="checkbox" 
-            v-bind:checked="task.completed || task.pomodorosCount <= 0"
+            v-bind:checked="task.completed == true || task.pomodorosCount <= 0"
             v-on:change="checkedtask">
             {{task.title}}
         </div>
         <div class="task-action">
             <button @click="$emit('delete-task', task.id)">eliminar</button>
+            <button id="actualizar" @click="$emit('actualizar-task', task.id)">Actualizar</button>
         </div>
+
     </div>
 </template>
 
@@ -19,7 +21,6 @@ export default {
     methods:{
         checkedtask(){
             this.task.completed = !this.task.completed;
-            this.task.pomodorosCount = 1;
         }
     }
 }
@@ -28,8 +29,8 @@ export default {
 <style scoped>
     .task{
         border-bottom: solid 1px #ccc;
-        width: 350%;
-        max-width: 400px;
+        width: 100%;
+        max-width: 600px;
         padding: 5px;
         font-size: large;
     }
@@ -54,7 +55,7 @@ export default {
     }
     .task-actions{
         padding: 0 10px;
-        width: 10%;
+        width: 100%;
         
     }
     
@@ -62,14 +63,55 @@ export default {
         cursor: pointer;
         border: none;
         border-radius: 20px;
-        padding: 10px;
+        padding: 10px; 
         background-color: #ccc;
         color: black;
+        margin-left: 70%;
     }
     button:hover{
         background-color: #da2020;
         color: white;
     }
+    #actualizar{
+        margin-left: 1%;
+    }
+    #actualizar:hover{
+        background-color: rgb(61, 61, 243);
+    }
+    @media (max-width:1635px) {
+        button{
+            margin-left: 62%;
+        }
+    }
+    @media (max-width:1635px) {
+        button{
+            margin-left: 60%;
+        }
+    }
+    @media (max-width:1250px) {
+        button{
+            margin-left: 50%;
+        }
+    } 
     
-
+    @media (max-width:1000px) {
+        button{
+            margin-left: 40%;
+        }
+    } 
+    @media (max-width:800px) {
+        button{
+            margin-left: 60%;
+        }
+    } 
+    @media (max-width:640px) {
+        button{
+            margin-left: 40%;
+        }
+    } 
+    @media (max-width:450px) {
+        button{
+            margin-left: 20%;
+        }
+    } 
 </style>

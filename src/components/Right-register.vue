@@ -19,10 +19,10 @@
                     <img src="../assets/candado.png" alt="">
                 </div>
                 <form class="data" id="form" name="form" v-on:submit="save">
-                    <input type="text" name="username" autocomplete="off" required maxlength="20" pattern="[a-zA-Z 0-9]+" placeholder="Username">
-                    <input type="email" name="email" required class="incorrect" placeholder="Email">
-                    <input type="password" minlength="8" maxlength="24" name="password" required class="incorrect" placeholder="Password">
-                    <input type="password" name="confirmPassword" minlength="8" maxlength="24" required placeholder="Confirm Password">
+                    <input type="text" name="username" autocomplete="off" required maxlength="20" pattern="[a-zA-Z 0-9]+" placeholder="Username" v-model="user.username">
+                    <input type="email" name="email" required class="incorrect" placeholder="Email" v-model="user.email">
+                    <input type="password" minlength="8" maxlength="24" name="password" required class="incorrect" placeholder="Password" v-model="user.password">
+                    <input type="password" name="confirmPassword" minlength="8" maxlength="24" required placeholder="Confirm Password" v-model="user.confirmPassword">
                     <input type="submit">
                     <div id="error">
                     </div>
@@ -36,7 +36,7 @@
             <a href="#"><img src="../assets/facebook.png" alt=""></a>
             <button class="home-button" @click="$emit('goHome')">Home</button>
         </div>
-
+        
         <div class="footer">
             
         </div>
@@ -46,48 +46,42 @@
 <script>
 // import { uuid } from "vue-uuid";
 
-
 export default {
     name: "Right-register",
     data(){
         return{
-            user:""
+            user:{
+                username:"",
+                email:"",
+                password:"",
+                confirmPassword:""
+            }
         }
     },
     methods:{
         save(e){
             e.preventDefault();
-            const data = document.getElementById("form");
-            let formData = new FormData(data);
-            let formDataObject = this.toObject(formData);
-            console.log(formDataObject);
-        },
-
-        toObject(formData){
-            let username = formData.get("username");
-            let email = formData.get("email");
-            let password = formData.get("password")
-            let confirmPassword = formData.get("confirmPassword");
-            if(password == confirmPassword){
-                this.$emit("registered");
-                return{
-                    "username":username,
-                    "email":email,
-                    "password":confirmPassword
-                }
+            if(this.user.password == this.user.confirmPassword){
+            this.axios.post("https://stark-lake-93119.herokuapp.com/createuser", this.user)
+            .then((response) => {
+                this.$emit("registered", response);
+                })
+            .catch(error => {
+                let msg = error.response.data.error;
+                this.$swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: msg,
+                })
+            })
             }else{
-                let element = document.getElementById("error");
-                element.innerHTML = `
-                        <div style=" height: 25px; display: flex; justify-content: center; position:absolute;">
-                            <p style="color: #C13D3D; font-size: 24px;">¡Passwords do not match!</p>
-                        </div> 
-                `
+                this.$swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Password do not match',
+                    })
             }
-
-                
-
         },
-
     }
 }
 

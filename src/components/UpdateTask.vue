@@ -9,10 +9,9 @@
 </template>
 
 <script>
-import { uuid } from "vue-uuid";
 
 export default {
-    name: "TaskAdd",
+    name: "UpdateTask",
     data(){
         return{
             title:"",
@@ -26,14 +25,14 @@ export default {
             theForm.reset()
 
             const newTask = {
-                id : uuid.v4(),
+                id:"",
                 title : this.title,
                 pomodorosCount : JSON.stringify(this.pomodorosCount),
                 completed : JSON.stringify(false)
             };
 
             this.title = "";
-            this.$emit('add-Task', newTask);
+            this.$emit('act-task', newTask);
 
         }
     }

@@ -1,15 +1,16 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import GAuth from 'vue3-google-oauth2'
+import * as Vue from 'vue' // in Vue 3
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 
 const app = createApp(App)
 
-const gAuthOptions = 
-{ clientId: '754430709039-jlssln6c4phugulm54tkp1iiaqib27el.apps.googleusercontent.com', 
-scope: 'email', 
-prompt: 'consent', 
-fetch_basic_profile: true }
-
-app.use((GAuth, gAuthOptions))
+app.use(VueSweetalert2);
+app.use(VueAxios, axios)
 
 app.mount('#app')

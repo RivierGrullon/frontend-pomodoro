@@ -2,11 +2,11 @@
     <div class="container">
         
         <div class="header">
-            <button class="login-button" @click="$emit('login')">Sign in</button>
-            <button class="register-button">Sign up</button>
+            <button class="login-button">Sign in</button>
+            <button class="register-button" @click="$emit('goRegister')">Sign up</button>
             <div class="tittle">
                 <h1>Sign in</h1>
-            </div>
+            </div>  
         </div>
 
 
@@ -16,9 +16,9 @@
                     <img src="../assets/user.png" alt="">
                     <img src="../assets/candado.png" alt="">
                 </div>
-                <form class="data" id="form" name="form" v-on:submit="save">
-                    <input type="email" name="email" required class="incorrect" placeholder="Email">
-                    <input type="password" minlength="8" maxlength="24" name="password" required class="incorrect" placeholder="Password">
+                <form class="data" id="form" name="form" v-on:submit="login">
+                    <input type="text"  required class="incorrect" placeholder="Username" v-model="user.username">
+                    <input type="password" required class="incorrect" placeholder="Password" v-model="user.password">
                     <input type="submit">                    
                 </form>
                 <p class="forget">Forget password</p>
@@ -40,13 +40,33 @@
 
 export default {
     name: "Login-right",
+    data(){
+        return{
+            user:{
+                username: "",
+                password: ""
+            }
+        }
+    },
     methods:{
-        save(e){
+        login(e){
             e.preventDefault();
-            const data = document.getElementById("form");
-            let formData = new FormData(data);
-            let formDataObject = this.toObject(formData);
-            console.log(formDataObject);
+            this.axios.post("https://stark-lake-93119.herokuapp.com/login", this.user)
+            .then((response) => {
+                console.log(response)
+                this.$emit("loged");
+                let token = JSON.stringify(response.data.access_token);
+                localStorage.setItem("token", token)
+                })
+            .catch(error => {
+                console.log(error)
+                let msg = error.response.data.messsage;
+                this.$swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: msg,
+                })
+            })
         }
 
     }
