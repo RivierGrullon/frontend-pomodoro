@@ -43,8 +43,9 @@ export default {
                 this.add = false
                 this.copyTasks = []
                 this.saveTasks()
-            
             })
+            
+            
         },
         addNewTask(){
             this.add = true
@@ -64,8 +65,9 @@ export default {
                         .then((res)=>{
                             this.copyTasks = []
                             this.saveTasks();
-                            this.update = false;
+
                         })
+                        this.add = false;
                         this.$swal.fire({
                             position: 'top-end',
                             icon: 'success',
@@ -73,7 +75,6 @@ export default {
                             showConfirmButton: false,
                             timer: 1500
                         })
-                        this.saveTasks()
                     } else if (result.isDenied) {
                         Swal.fire('Changes are not saved', '', 'info')
                     }
@@ -123,6 +124,7 @@ export default {
                 this.copyTasks = []
                 this.saveTasks();
                 this.update = false;
+
             })
             
         }
