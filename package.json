@@ -1,0 +1,24 @@
+{
+  "name": "frontend-pomodoro",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@estudioliver/vue-uuid-v4": "^1.0.0",
+    "axios": "^0.27.2",
+    "sweetalert2": "^11.4.24",
+    "uuid-v4": "^0.1.0",
+    "vue": "^3.2.25",
+    "vue-axios": "^3.4.1",
+    "vue-sweetalert2": "^5.0.5",
+    "vue3-google-oauth2": "^1.0.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.1",
+    "vite": "^2.9.2"
+  }
+}
