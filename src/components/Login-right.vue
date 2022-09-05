@@ -21,18 +21,9 @@
                     <input type="password" required class="incorrect" placeholder="Password" v-model="user.password">
                     <input type="submit">                    
                 </form>
-                <p class="forget">Forget password</p>
             </div>
         </div>
         
-        <div class="redes"> 
-            <a href=""><img src="../assets/gramo.png" alt=""></a>
-            <a href=""><img src="../assets/facebook.png" alt=""></a>
-        </div>
-
-        <div class="footer">
-            
-        </div>
     </div>
 </template>
 
@@ -115,16 +106,6 @@ export default {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
      0px 4px 4px rgba(0, 0, 0, 0.5);
 
-}
-.forget{
-    /* transition: all 5s ease 0s; */
-    position: absolute;
-    left: 10%;
-    cursor: pointer;
-    width: 50%;
-    margin-top: 260px;
-    color: rgb(0, 0, 0);
-    font-size: 20px;
 }
 
 .tittle{
@@ -220,17 +201,6 @@ export default {
     margin-top: 50px;
 }
 
-.redes{ 
-    display: flex;
-    position: relative;
-    margin-top: 535px;
-    margin-left: 65%;
-}
-
-.redes img{
-    width: 100%;
-    height: 40px;
-}
 @media (max-width: 800px) {
     .container{
         margin-left: 0%;
@@ -247,9 +217,6 @@ export default {
 @media (max-width: 400px) {
     .form input{
         height: 30px;
-    }
-    .redes{ 
-    margin-left: 50%;
     }
     .tittle h1{
     font-size: 370%;

@@ -3,22 +3,12 @@
         <div class="header">
             <div class="name">
                 <h1>pomodoro</h1>
-                
             </div>
-            <img src="../assets/usuario-de-perfil.png" alt="" v-if="logged">
+            <img v-if="logged" @click="openCloseMenu" src="../assets/usuario-de-perfil.png"  alt="open menu" >
             <button v-else @click="$emit('goLogin')" >login</button>
         </div>
 
         <div class="timer">
-            <div class="nav">
-                <nav>
-                    <li>
-                        <ol>Pomodoro</ol>
-                        <ol>Record</ol>
-                        <ol>Setting</ol>
-                    </li>
-                </nav>
-            </div>
             <h1 v-if="pomoOrRest">{{ timeDisplayPomodoro }}</h1>
             <h1 v-else>{{ timeDisplayRest }}</h1>
         </div>
@@ -28,18 +18,22 @@
             <button @click="clickResume" v-if="resume">Resume</button>
             <button  v-if="rest" id="restButton">Rest</button>
         </div>
-    </div>
+        <user-menu-vue v-if="menu" v-on:close="openCloseMenu"/>
+        </div>
 </template>
 
 <script>
 import beep from "../assets/sound/beep.mp3"
+import UserMenuVue from "./UserMenu.vue"
+
 export default {
     name: "Home-right",
     props:["registered"],
+    components:{UserMenuVue},
     data(){
         return{
         currentTimeSeconds: 25 * 60,
-        restDuration: 5 * 60,
+        restDuration: 25 * 60,
         interval:null,
         interval2:null,
         start:true,
@@ -48,7 +42,8 @@ export default {
         resume:false,
         pomoOrRest:true,
         beepAudio: new Audio(beep),
-        logged: false
+        logged: false,
+        menu:false
         }
 
     },
@@ -66,8 +61,8 @@ export default {
             this.logged = login
         },
         beginnig(){
-            this.currentTimeSeconds = 0.1 * 60;
-            this.restDuration = 0.1 * 60,
+            this.currentTimeSeconds = 25 * 60;
+            this.restDuration = 25 * 60,
             clearInterval(this.interval);
             clearInterval(this.interval2);
             this.start = true
@@ -115,9 +110,27 @@ export default {
             this.pomoOrRest = !this.pomoOrRest
             clearInterval(this.interval);
             this.beepAudio.play();
-            this.$emit("finish");
-        },
+            this.restarCount()
 
+        },
+        openCloseMenu(){
+            this.menu = !this.menu
+        },
+        restarCount(){
+            let data = localStorage.getItem("token")
+            let token = JSON.parse(data)
+            this.axios.get("https://stark-lake-93119.herokuapp.com/gettask", { headers: { Authorization: `Bearer ${token}` } })
+            .then((res)=>{
+                this.copyTasks = res.data
+                this.copyTasks.forEach(task => {
+                    if(task.pomodorosCount == 1){
+                        task.pomodorosCount = -1
+                    }
+                    task.pomodorosCount -= 1;
+                    this.axios.put("https://stark-lake-93119.herokuapp.com/updatetask", task, {headers: { Authorization: `Bearer ${token}` }})
+                });
+            });
+        }
 
     },
 
@@ -150,6 +163,8 @@ export default {
     min-height: 695px;
     background: #C13D3D;
 }
+
+
 
 .timer{
     position: absolute;
@@ -205,31 +220,6 @@ export default {
     height: 50px;
     cursor: pointer;
 }
-.nav{
-    width: 100%;
-    margin-top: 2%;
-    width: 75%;
-}
-.nav li{
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-    width: 95%;
-    font-size: 150%;
-    text-decoration: none;
-    list-style: none;
-}
-.nav ol{
-    border-radius: 20px;
-    padding: 10px;
-}
-
-.nav ol:hover{
-    transition: all 0.7s ease 0s;
-    background-color:#000;
-    color: #fff;
-}
-
 .start{
     margin-left: 20%;
 }

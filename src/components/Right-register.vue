@@ -31,20 +31,11 @@
             </div>
         </div>
 
-        <div class="redes">      
-            <a href="#" @click="$emit('google')"><img  src="../assets/gramo.png" alt=""></a>
-            <a href="#"><img src="../assets/facebook.png" alt=""></a>
-            <button class="home-button" @click="$emit('goHome')">Home</button>
-        </div>
         
-        <div class="footer">
-            
-        </div>
     </div>
 </template>
 
 <script>
-// import { uuid } from "vue-uuid";
 
 export default {
     name: "Right-register",
@@ -239,17 +230,6 @@ export default {
     margin-top: 10px;
 }
 
-.redes{ 
-    display: flex;
-    position: relative;
-    margin-top: 540px;
-    margin-left: 65%;
-}
-
-.redes img{
-    width: 100%;
-    height: 40px;
-}
 
 @media (max-width: 800px) {
     .container{
@@ -267,9 +247,6 @@ export default {
 @media (max-width: 400px) {
     .form input{
         height: 30px;
-    }
-    .redes{ 
-    margin-left: 50%;
     }
     .tittle h1{
     font-size: 370%;

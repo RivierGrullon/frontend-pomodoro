@@ -28,7 +28,7 @@ export default {
             const newTask = {
                 id : uuid.v4(),
                 title : this.title,
-                pomodorosCount : JSON.stringify(this.pomodorosCount),
+                pomodorosCount : this.pomodorosCount,
                 completed : JSON.stringify(false)
             };
 
