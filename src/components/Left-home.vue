@@ -7,7 +7,7 @@
             <button @click="addNewTask"><img src="../assets/more.png" alt=""></button>
         </div>
         <div class="tasks">
-            <TasksComponent v-bind:tasksList="copyTasks" v-on:delete-task="deleteTask" v-on:actualizar="actualizar"/>
+            <TasksComponent v-bind:tasksList="copyTasks" v-on:delete-task="deleteTask" v-on:actualizar="actualizar" />
         </div>
     </div>
 </template>
@@ -27,7 +27,6 @@ export default {
 },
     data(){
         return{
-            tasks:[],
             copyTasks: [],
             add: false,
             update: false,
@@ -39,16 +38,18 @@ export default {
             let data = localStorage.getItem("token")
             let token = JSON.parse(data)
             axios.post("https://stark-lake-93119.herokuapp.com/createtask", task, {headers: { Authorization: `Bearer ${token}` }})
-            this.add = false
-            this.copyTasks = []
-            this.saveTasks()
+            .then((res)=>{
+                this.add = false
+                this.copyTasks = []
+                this.saveTasks()
+            })
+            
             
         },
         addNewTask(){
             this.add = true
         },
         deleteTask(param){
-
             this.$swal.fire({
                   title: 'Do you want to delete task?',
                     showDenyButton: true,
@@ -59,6 +60,10 @@ export default {
                         let data = localStorage.getItem("token")
                         let token = JSON.parse(data)
                         axios.delete("https://stark-lake-93119.herokuapp.com/deletetask",   { data:{id:param}, headers: { Authorization: `Bearer ${token}` } })
+                        .then((res)=>{
+                            this.copyTasks = []
+                            this.saveTasks();
+                        })
                         this.add = false;
                         this.$swal.fire({
                             position: 'top-end',
@@ -67,9 +72,8 @@ export default {
                             showConfirmButton: false,
                             timer: 1500
                         })
-                        this.saveTasks()
                     } else if (result.isDenied) {
-                        Swal.fire('Changes are not saved', '', 'info')
+                        this.$swal.fire('Task was not remove', '', 'info')
                     }
             })
             
@@ -80,6 +84,11 @@ export default {
             this.axios.get("https://stark-lake-93119.herokuapp.com/gettask", { headers: { Authorization: `Bearer ${token}` } })
             .then((res)=>{
                 this.copyTasks = res.data
+                this.copyTasks.forEach(task => {
+                    if(task.pomodorosCount <= 0){
+                        task.completed = true
+                    }
+                });
                 localStorage.setItem("logged", true)
             })
             .catch((error)=>{
@@ -112,18 +121,20 @@ export default {
             let token = JSON.parse(data);
             let task = param;
             task.id = this.idUpdate;
-            axios.put("https://stark-lake-93119.herokuapp.com/updatetask", task, {headers: { Authorization: `Bearer ${token}` }});
-            this.copyTasks = []
-            this.saveTasks();
-            this.update = false;
+            console.log(task)
+            axios.put("https://stark-lake-93119.herokuapp.com/updatetask", task, {headers: { Authorization: `Bearer ${token}` }})
+            .then((res)=>{
+                this.copyTasks = []
+                this.saveTasks();
+                this.update = false;
+
+            })
             
         }
 
     },
     created(){
         this.saveTasks();
-        this.copyTasks = [... this.tasks]
-        this.$emit("add", this.copyTasks)
   }
 }
 

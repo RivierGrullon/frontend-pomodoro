@@ -3,14 +3,14 @@
     <div class="app" >
       
       <div class="right">
-        <right-register v-if="goToLogin" v-on:goHome="goToHome" v-on:registered="registered" v-on:login='login' v-on:google="signinGoogle"/>
-        <home-right-vue v-else-if="home" v-on:goLogin="login" v-on:finish="finish" :registered="register"  />
+        <right-register v-if="goToLogin" v-on:registered="registered" v-on:login='login' />
+        <home-right-vue v-else-if="home" v-on:goLogin="login" />
         <login-right  v-else-if="login" v-on:goRegister="irLogin" v-on:loged="logged"/>
-      </div>
+      </div>  
       
       <div class="left">
         <loginLeftVue v-if="goToLogin || logi" />
-        <LeftHomeVue v-else-if="home" v-on:add="save" v-on:expired="login"/>
+        <LeftHomeVue v-else-if="home" v-on:expired="login"/>
       </div>
 
 
@@ -41,7 +41,6 @@ export default {
       goToLogin: false,
       home:true,
       logi:false,
-      tasks:[],
       register:false
     }
   },
@@ -60,11 +59,6 @@ export default {
       this.home = false;      
       this.logi = true;
       this.goToLogin = false;
-    },
-    finish(){
-      this.tasks.forEach(element => {
-        element.pomodorosCount -= 1;
-      });
     },
     save(data){
       this.tasks = data

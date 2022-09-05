@@ -1,10 +1,14 @@
 <template>
-    <div class="task" v-bind:class="{completed: task.completed == true }" >
+    <div class="task" v-bind:class="{completed: task.completed == 'true' || task.completed == true}" >
         <div class="task-body">
             <input type="checkbox" 
-            v-bind:checked="task.completed == true || task.pomodorosCount <= 0"
-            v-on:change="checkedtask">
+            v-bind:checked="task.completed == 'true' || task.completed == true "
+            v-on:change="checkedtask"
+            >
             {{task.title}}
+            <img src="../assets/aprobado.png" alt="tarea completada" class="check"
+            v-bind:class="{noCompletedo: task.completed == 'false' || task.completed == false }">
+            
         </div>
         <div class="task-action">
             <button @click="$emit('delete-task', task.id)">eliminar</button>
@@ -21,9 +25,22 @@ export default {
     methods:{
         checkedtask(){
             this.task.completed = !this.task.completed;
-        }
+            let data = localStorage.getItem("token");
+            let token = JSON.parse(data);
+            let body = {
+                id:this.task.id,
+                title : this.task.title,
+                pomodorosCount : this.task.pomodorosCount,
+                completed : JSON.stringify(this.task.completed)
+            }
+            console.log(body)
+            this.axios.put("https://stark-lake-93119.herokuapp.com/updatetask", body, {headers: { Authorization: `Bearer ${token}` }})
+
+        },
+
+
+    },
     }
-}
 </script>
 
 <style scoped>
@@ -45,6 +62,12 @@ export default {
     }
     .completed .task-body{
         text-decoration: line-through;
+    }
+    .noCompletedo{
+        display: none;
+    }
+    .check:not(Completado){
+        position:absolute;
     }
     .task-body, .task-actions{
         vertical-align: top;

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-bind:key="task.id" v-for="task in tasksList">
-        <TaskItemVue  :task="task" v-on:delete-task="$emit('delete-task', task.id)"  v-on:actualizar-task="$emit('actualizar', task.id)"/>
+        <TaskItemVue  :task="task" v-on:delete-task="$emit('delete-task', task.id)" v-on:actualizar-task="$emit('actualizar', task.id)"/>
         </div>
     </div>
 </template>
